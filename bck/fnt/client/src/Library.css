@@ -1,0 +1,245 @@
+.library-container {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+    overflow-y: auto;
+}
+
+.library-header {
+    margin-bottom: 30px;
+}
+
+.library-header h1 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin: 0 0 8px 0;
+}
+
+.library-header p {
+    color: #64748b;
+    margin: 0 0 24px 0;
+}
+
+.tab-navigation {
+    display: flex;
+    gap: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 12px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.tab-btn.active {
+    background: #ffffff;
+    color: #3b82f6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.library-content {
+    flex: 1;
+}
+
+/* PDF Viewer Styles */
+.pdf-viewer-section {
+    height: 600px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.pdf-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+}
+
+.placeholder-content h2 {
+    color: #1e293b;
+    margin-bottom: 12px;
+}
+
+.placeholder-content p {
+    color: #64748b;
+    max-width: 400px;
+    margin: 0 auto 24px auto;
+}
+
+.btn-upload {
+    padding: 12px 24px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Summaries Grid Styles */
+.summaries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+.summary-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f1f5f9;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 16px;
+}
+
+.card-icon {
+    font-size: 2rem;
+    background: #f1f5f9;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.unit-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #3b82f6;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.card-title-group h3 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1.25rem;
+}
+
+.summary-section {
+    margin-bottom: 20px;
+}
+
+.summary-section h4 {
+    color: #475569;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.patterns-list,
+.rituals-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.patterns-list li {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.patterns-list li strong {
+    color: #1e293b;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.patterns-list li span {
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+.rituals-list li {
+    border-left: 3px solid #e2e8f0;
+    padding-left: 12px;
+    margin-bottom: 12px;
+}
+
+.ritual-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.ritual-text {
+    font-weight: 600;
+    color: #1e293b;
+    margin: 2px 0;
+}
+
+.ritual-context {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+.btn-open-pdf {
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px;
+    background: #eff6ff;
+    color: #3b82f6;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-open-pdf:hover {
+    background: #3b82f6;
+    color: white;
+}

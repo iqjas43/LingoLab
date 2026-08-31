@@ -1,0 +1,29 @@
+.coin-balance {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #eab308;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.coin-balance:hover {
+    background: rgba(255, 215, 0, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 179, 8, 0.2);
+}
+
+.coin-icon {
+    font-size: 1.2rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.balance-amount {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}

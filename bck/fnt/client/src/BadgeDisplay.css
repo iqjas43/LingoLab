@@ -1,0 +1,152 @@
+.badge-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.badge-item.earned:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.5);
+}
+
+.badge-item.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, rgba(100, 100, 100, 0.1), rgba(50, 50, 50, 0.05));
+}
+
+.badge-item.locked .locked-icon {
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.badge-icon {
+    font-size: 48px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.badge-item.locked .badge-icon {
+    background: linear-gradient(135deg, #666, #888);
+    box-shadow: none;
+}
+
+.badge-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.badge-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.badge-date {
+    font-size: 12px;
+    color: #64748b;
+    font-style: italic;
+}
+
+.badge-hint {
+    font-size: 12px;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+/* Size Variants */
+.badge-item.small {
+    padding: 8px;
+    gap: 8px;
+}
+
+.badge-item.small .badge-icon {
+    font-size: 32px;
+    width: 48px;
+    height: 48px;
+}
+
+.badge-item.small .badge-name {
+    font-size: 14px;
+}
+
+.badge-item.small .badge-date {
+    font-size: 10px;
+}
+
+.badge-item.large {
+    padding: 16px;
+    gap: 16px;
+}
+
+.badge-item.large .badge-icon {
+    font-size: 64px;
+    width: 80px;
+    height: 80px;
+}
+
+.badge-item.large .badge-name {
+    font-size: 20px;
+}
+
+.badge-item.large .badge-date {
+    font-size: 14px;
+}
+
+/* Badge Grid Layout */
+.badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+/* Badge Collection Sections */
+.badge-section {
+    margin-bottom: 32px;
+}
+
+.badge-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.badge-section-title::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(to bottom, #ffd700, #ffed4e);
+    border-radius: 2px;
+}

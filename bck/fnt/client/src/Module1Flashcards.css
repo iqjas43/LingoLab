@@ -1,0 +1,245 @@
+.module1-container {
+    min-height: 100vh;
+    background-color: #111827;
+    /* dark bg */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    font-family: 'Inter', sans-serif;
+}
+
+.module1-header {
+    width: 100%;
+    max-width: 768px;
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.module1-title {
+    font-size: 36px;
+    font-weight: 800;
+    background: linear-gradient(to right, #a78bfa, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+}
+
+.module1-description {
+    color: #9ca3af;
+    margin-top: 8px;
+    font-size: 18px;
+}
+
+.ritual-btn {
+    background-color: #4f46e5;
+    color: white;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.ritual-btn:hover {
+    background-color: #4338ca;
+    transform: scale(1.05);
+}
+
+.flashcard-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 672px;
+}
+
+.card-type-label {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #d8b4fe;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.flashcard-wrapper {
+    perspective: 1000px;
+    width: 100%;
+    height: 320px;
+    cursor: pointer;
+    position: relative;
+}
+
+.flashcard-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-radius: 24px;
+}
+
+.flashcard-inner.flipped {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.flashcard-front {
+    background-color: #1f2937;
+    border-top: 4px solid #6366f1;
+}
+
+.flashcard-back {
+    background-color: #312e81;
+    border-top: 4px solid #ec4899;
+    transform: rotateY(180deg);
+}
+
+.flashcard-text-front {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    color: #f3f4f6;
+    margin: 0;
+}
+
+.flashcard-text-back {
+    font-size: 48px;
+    font-weight: 800;
+    text-align: center;
+    color: white;
+    margin: 0;
+}
+
+.controls {
+    display: flex;
+    gap: 24px;
+    margin-top: 48px;
+    width: 100%;
+    justify-content: center;
+}
+
+.control-btn {
+    font-weight: 600;
+    padding: 12px 32px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+    color: white;
+}
+
+.btn-prev {
+    background-color: #1f2937;
+}
+
+.btn-prev:hover {
+    background-color: #374151;
+}
+
+.btn-next {
+    background-color: #7c3aed;
+}
+
+.btn-next:hover {
+    background-color: #6d28d9;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 16px;
+}
+
+.modal-content {
+    background-color: #1f2937;
+    border-radius: 24px;
+    padding: 32px;
+    width: 100%;
+    max-width: 448px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid #374151;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    text-align: center;
+    color: #f472b6;
+}
+
+.ritual-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ritual-item {
+    background-color: #374151;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ritual-hindi {
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+}
+
+.ritual-english {
+    font-size: 16px;
+    color: #9ca3af;
+}
+
+.modal-close {
+    margin-top: 32px;
+    width: 100%;
+    background-color: #4b5563;
+    color: white;
+    font-weight: 700;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-close:hover {
+    background-color: #6b7280;
+}

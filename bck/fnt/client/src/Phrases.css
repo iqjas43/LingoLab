@@ -1,0 +1,132 @@
+.phrases-container {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+    overflow-y: auto;
+}
+
+.phrases-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.phrases-header h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+.phrases-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+.phrase-category-section {
+    margin-bottom: 50px;
+}
+
+.category-title {
+    font-size: 1.5rem;
+    color: #3b82f6;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.category-title::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, transparent);
+    opacity: 0.2;
+}
+
+.phrases-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.phrase-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.phrase-card:hover {
+    transform: translateX(8px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
+}
+
+.phrase-header {
+    background: #f8fafc;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.phrase-header .content h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #1e293b;
+}
+
+.phrase-header .content .roman {
+    font-size: 0.9rem;
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+.label {
+    min-width: 80px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.phrase-detail {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.detail-item .text {
+    color: #334155;
+    font-weight: 500;
+    flex: 1;
+}
+
+.detail-item .text.italic {
+    font-style: italic;
+    color: #64748b;
+}
+
+@media (max-width: 768px) {
+
+    .phrase-header,
+    .detail-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .label {
+        min-width: unset;
+    }
+}
