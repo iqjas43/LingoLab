@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import BadgeDisplay from './BadgeDisplay';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://lingolab-production.up.railway.app';
+
 function Profile() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -24,7 +26,7 @@ function Profile() {
         }
 
         try {
-            const res = await fetch(`http://localhost:3000/api/auth/convert-xp`, {
+            const res = await fetch(`${API_BASE_URL}/api/auth/convert-xp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: user.email, xpToConvert: 10 })
@@ -45,7 +47,7 @@ function Profile() {
     useEffect(() => {
         async function fetchUser() {
             try {
-                const res = await fetch(`http://localhost:3000/api/auth/me?email=${email}&t=${Date.now()}`);
+                const res = await fetch(`${API_BASE_URL}/api/auth/me?email=${email}&t=${Date.now()}`);
                 const data = await res.json();
                 if (res.ok) {
                     setUser(data);
@@ -90,7 +92,6 @@ function Profile() {
                     </div>
                 </div>
             )}
-
 
             <div className="profile-card">
                 <div className="profile-header">
