@@ -1,3 +1,4 @@
+import { apiFetch } from './api';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import './Dashboard.css';
@@ -5,6 +6,7 @@ import BadgeDisplay from './BadgeDisplay';
 import AchievementToast from './AchievementToast';
 import DailyGoalWidget from './DailyGoalWidget';
 import LevelUpModal from './LevelUpModal';
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ function Dashboard() {
   // Fetch progress when user or course changes
   useEffect(() => {
     if (user && selectedCourseId) {
-      fetch(`http://localhost:3000/api/progress/${user._id}/${selectedCourseId}`)
+      apiFetch(`/api/progress/${user._id}/${selectedCourseId}`)
         .then(res => res.json())
         .then(data => setProgress(data))
         .catch(err => console.error("Failed to fetch progress:", err));
@@ -40,7 +42,7 @@ function Dashboard() {
   // Fetch recent badges
   useEffect(() => {
     if (user && user.email) {
-      fetch(`http://localhost:3000/api/auth/badges/${user.email}`)
+      apiFetch(`/api/auth/badges/${user.email}`)
         .then(res => res.json())
         .then(data => {
           const badges = data.badges || [];
