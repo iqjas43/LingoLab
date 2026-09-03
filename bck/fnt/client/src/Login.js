@@ -79,8 +79,7 @@ function Login() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('http://localhost:3000/api/auth/login', {
-        method: 'POST',
+  const res = await fetch(`${process.env.REACT_APP_API_URL || 'https://lingolab-production.up.railway.app'}/api/auth/login`, {        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
