@@ -7,18 +7,17 @@ import AchievementToast from './AchievementToast';
 import DailyGoalWidget from './DailyGoalWidget';
 import LevelUpModal from './LevelUpModal';
 
-
 function Dashboard() {
   const navigate = useNavigate();
   // Consume data from Layout
   const { user, fetchUser, courses, selectedCourseId, handleCourseChange, currentCourse } = useOutletContext();
 
-  // Refresh user data (like daily goal, xp, coins) whenever Dashboard mounts
+  // Refresh user data whenever Dashboard mounts
   useEffect(() => {
     if (fetchUser) {
       fetchUser();
     }
-  }, []);
+  }, [fetchUser]);
 
   // Local state for progress
   const [progress, setProgress] = useState(null);
@@ -29,15 +28,17 @@ function Dashboard() {
   const [levelUpData, setLevelUpData] = useState(null);
   const [recentBadges, setRecentBadges] = useState([]);
 
+  const userId = user?._id || user?.id;
+
   // Fetch progress when user or course changes
   useEffect(() => {
-    if (user && selectedCourseId) {
-      apiFetch(`/api/progress/${user._id}/${selectedCourseId}`)
+    if (userId && selectedCourseId) {
+      apiFetch(`/api/progress/${userId}/${selectedCourseId}`)
         .then(res => res.json())
         .then(data => setProgress(data))
         .catch(err => console.error("Failed to fetch progress:", err));
     }
-  }, [user, selectedCourseId]);
+  }, [userId, selectedCourseId]);
 
   // Fetch recent badges
   useEffect(() => {
@@ -46,7 +47,6 @@ function Dashboard() {
         .then(res => res.json())
         .then(data => {
           const badges = data.badges || [];
-          // Get last 3 badges
           setRecentBadges(badges.slice(-3).reverse());
         })
         .catch(err => console.error("Failed to fetch badges:", err));
@@ -56,29 +56,26 @@ function Dashboard() {
   if (!user) return <div className="loading-screen">Loading...</div>;
 
   const userXP = user.xp || 0;
-  // level is stored as string like "Beginner" in DB, but we need numeric for progress
-  // Or if it's already numeric, use it. Let's handle both.
-  const numericLevel = parseInt(user.level) || 1;
-  // Calculate progress based on completed items
-  const completedIds = progress?.completedLessons?.map(l => l._id || l) || progress?.completedUnits || [];
-  const unlockedModuleIds = progress?.unlockedModules?.map(m => m._id || m) || [];
   const totalLessonsFinished = user.lessonsCompleted || 0;
 
+  // Robust ID extraction for completed items and modules
+  const completedIds = progress?.completedLessons?.map(l => l._id || l.id || l) || progress?.completedUnits || [];
+  const unlockedModuleIds = progress?.unlockedModules?.map(m => m._id || m.id || m) || [];
+
   const displayItems = currentCourse?.levels && currentCourse.levels.length > 0
-    ? currentCourse.levels.flatMap(lvl => lvl.modules.map((m, idx) => ({
-      unitId: m._id,
-      title: m.title,
-      description: m.description,
-      color: m.isCheckpoint ? '#ef4444' : '#3b82f6',
-      isModule: true,
-      levelName: lvl.name
-    })))
-    : (currentCourse?.units || []);
+    ? currentCourse.levels.flatMap(lvl => (lvl.modules || []).map((m) => ({
+        unitId: m._id || m.id,
+        title: m.title,
+        description: m.description,
+        color: m.isCheckpoint ? '#ef4444' : '#3b82f6',
+        isModule: true,
+        levelName: lvl.name
+      })))
+    : (currentCourse?.units || []).map(u => ({ ...u, unitId: u._id || u.id || u.unitId }));
 
   let progressPercent = 0;
   if (displayItems.length > 0) {
     progressPercent = Math.round((completedIds.length / displayItems.length) * 100);
-    // basic clamp
     if (progressPercent > 100) progressPercent = 100;
   }
 
@@ -87,7 +84,7 @@ function Dashboard() {
       {/* Top Header */}
       <header className="dashboard-header">
         <div className="header-greeting">
-          <h1>Welcome back, {user.name}! 👋</h1>
+          <h1>Welcome back, {user.name || 'Learner'}! 👋</h1>
           <p>Ready to learn something new today?</p>
         </div>
 
@@ -105,27 +102,30 @@ function Dashboard() {
                             currentCourse.language === 'Japanese' ? '🇯🇵' : '🌍'}
                   </span>
                   <span style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>
-                    {currentCourse.language}
+                    {currentCourse.language || currentCourse.name}
                   </span>
                 </div>
               )}
               <select
                 className="course-selector"
-                value={selectedCourseId}
+                value={selectedCourseId || ''}
                 onChange={handleCourseChange}
                 style={{ appearance: 'none', background: '#fff', border: '1px solid #e2e8f0', color: '#334155', padding: '8px 15px', borderRadius: '10px', cursor: 'pointer', fontSize: '14px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}
               >
                 <option value="" disabled>Select Language</option>
-                {courses.map(c => (
-                  <option key={c.courseId} value={c.courseId}>
-                    {c.language === 'Hindi' ? '🇮🇳 ' :
-                      c.language === 'English' ? '🇺🇸 ' :
-                        c.language === 'Spanish' ? '🇪🇸 ' :
-                          c.language === 'French' ? '🇫🇷 ' :
-                            c.language === 'Japanese' ? '🇯🇵 ' : ''}
-                    {c.language || c.name}
-                  </option>
-                ))}
+                {courses.map(c => {
+                  const cId = c.courseId || c._id;
+                  return (
+                    <option key={cId} value={cId}>
+                      {c.language === 'Hindi' ? '🇮🇳 ' :
+                        c.language === 'English' ? '🇺🇸 ' :
+                          c.language === 'Spanish' ? '🇪🇸 ' :
+                            c.language === 'French' ? '🇫🇷 ' :
+                              c.language === 'Japanese' ? '🇯🇵 ' : ''}
+                      {c.language || c.name}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
@@ -236,10 +236,8 @@ function Dashboard() {
 
                 let isLocked = false;
                 if (unit.isModule) {
-                  // The first CEFR module is always unlocked. Others rely on backend unlockedModules logic.
                   isLocked = index > 0 && !unlockedModuleIds.includes(unit.unitId);
                 } else if (index > 0) {
-                  // For legacy units, sequential unlock
                   const prevUnitId = displayItems[index - 1].unitId;
                   if (!completedIds.includes(prevUnitId)) {
                     isLocked = true;
@@ -250,11 +248,11 @@ function Dashboard() {
 
                 return (
                   <div
-                    key={unit.unitId}
+                    key={unit.unitId || index}
                     className={`unit-card ${isLocked ? 'locked' : ''} ${isCurrent ? 'current' : ''}`}
-                    style={{ '--unit-color': unit.color }}
+                    style={{ '--unit-color': unit.color || '#3b82f6' }}
                   >
-                    <div className="unit-header" style={{ backgroundColor: unit.color }}>
+                    <div className="unit-header" style={{ backgroundColor: unit.color || '#3b82f6' }}>
                       <span className="unit-number">
                         {unit.isModule ? `${unit.levelName} - MODULE ${index + 1}` : `UNIT ${unit.unitId}`}
                       </span>
@@ -279,7 +277,7 @@ function Dashboard() {
                               <>
                                 <button
                                   className="btn-book"
-                                  onClick={() => navigate(`/quiz/${unit.unitId}?lang=${currentCourse.language}`)}
+                                  onClick={() => navigate(`/quiz/${unit.unitId}?lang=${currentCourse?.language || ''}`)}
                                 >
                                   📖 QUIZ
                                 </button>
