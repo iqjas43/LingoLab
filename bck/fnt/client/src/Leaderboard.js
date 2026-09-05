@@ -9,7 +9,7 @@ function Leaderboard() {
     useEffect(() => {
         async function fetchLeaderboard() {
             try {
-                const res = await fetch('http://localhost:3000/api/auth/leaderboard');
+               const res = await fetch(`${process.env.REACT_APP_API_URL || 'https://lingolab-production.up.railway.app'}/api/auth/leaderboard`);
                 const data = await res.json();
                 setUsers(data);
                 setLoading(false);
