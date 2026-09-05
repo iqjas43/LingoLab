@@ -8,6 +8,8 @@ const connectDB = require('./db');
 const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/courseRoutes');
 const quizRoutes = require('./routes/quizRoutes');
+const progressRoutes = require('./routes/progressRoutes');
+const grammarRoutes = require('./routes/grammarRoutes');
 
 const app = express();
 
@@ -20,15 +22,21 @@ app.use((req, res, next) => {
 // Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // MongoDB connect
 connectDB();
 
-// Routes
+// Root route
+app.get('/', (req, res) => {
+  res.send('Backend running');
+});
+
+// --- API Routes ---
 app.use('/api/auth', authRoutes);
 
+// Custom inline route moved BEFORE or handled properly so it doesn't conflict
 app.get('/api/courses/module1', (req, res) => {
-  // Provide mock data so the Module1Flashcards component works
   res.json({
     content: {
         pattern: {
@@ -53,15 +61,7 @@ app.get('/api/courses/module1', (req, res) => {
 
 app.use('/api/courses', courseRoutes);
 app.use('/api/quiz', quizRoutes);
-
-app.get('/', (req, res) => {
-  res.send('Backend running');
-});
-
-const progressRoutes = require('./routes/progressRoutes');
 app.use('/api/progress', progressRoutes);
-
-const grammarRoutes = require('./routes/grammarRoutes');
 app.use('/api/grammar', grammarRoutes);
 
 const PORT = process.env.PORT || 3000;
