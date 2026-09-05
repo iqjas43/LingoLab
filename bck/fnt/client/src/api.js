@@ -15,11 +15,13 @@ export const apiFetch = async (endpoint, options = {}) => {
   });
 
   const text = await response.text();
-  let data = null;
+  
+  let data;
   try {
-    data = text ? JSON.parse(text) : null;
-  } catch (e) {
-    data = { message: text };
+    data = text ? JSON.parse(text) : {};
+  } catch (err) {
+    console.error("Backend returned non-JSON:", text);
+    data = { message: text || "Server returned an invalid response" };
   }
 
   return {
