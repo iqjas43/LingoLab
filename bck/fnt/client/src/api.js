@@ -14,5 +14,18 @@ export const apiFetch = async (endpoint, options = {}) => {
     headers
   });
 
-  return response;
+  const text = await response.text();
+  let data = null;
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch (e) {
+    data = { message: text };
+  }
+
+  return {
+    ok: response.ok,
+    status: response.status,
+    json: async () => data,
+    text: async () => text
+  };
 };
