@@ -1,4 +1,4 @@
-const API_BASE = process.env.REACT_APP_API_URL || 'https://lingolab-production-url.up.railway.app'; // (tera jo bhi Railway URL hai)
+const API_BASE = process.env.REACT_APP_API_URL || 'https://lingolab-production.up.railway.app';
 
 export const apiFetch = async (endpoint, options = {}) => {
   const token = localStorage.getItem('token') || localStorage.getItem('authToken');
